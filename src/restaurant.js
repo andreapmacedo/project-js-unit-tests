@@ -88,27 +88,30 @@ const createMenu = (itens) => {
       bill.consumption.push(string);
       return bill.consumption;
     },
-    // eslint-disable-next-line sonarjs/cognitive-complexity
     pay: () => {
       let totalConsumption = bill.consumption;
       let drinks = Object(bill.fetchMenu().drink);
       let foods = Object(bill.fetchMenu().food);
       let sum = 0.0;
+      let sum2 = 0.0;
       // *consulta https://pt.stackoverflow.com/questions/173293/como-percorrer-um-objeto-em-javascript
       // Object.keys(foods).forEach((item) => {
       //   console.log(item + " = " + foods[item]);
       // });
       let allMenuItens = Object.assign(drinks, foods);
-      console.log(allMenuItens);
+      // console.log(allMenuItens);
+      let counter = (item) => { sum2 += item; };
 
       for (let value of totalConsumption) {
         Object.keys(allMenuItens).forEach((item) => {
           if (item === value) {
-            sum += allMenuItens[item];
+            // sum += allMenuItens[item];
+            counter(allMenuItens[item]);
           }
         });
       }
-      return sum;
+      // console.log(sum2);
+      return sum2;
     },
   };
   return bill;
