@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 /* eslint-disable max-len */
 
 /*
@@ -79,6 +80,45 @@
 // que percorre por todos os itens de `objetoRetornado.consumption`, soma o preço deles e retorna o valor somado acrescido de 10%.
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
-const createMenu = () => {};
+const createMenu = (itens) => {
+  const check = {
+    fetchMenu: () => itens,
+    consumption: [],
+    order: (string) => {
+      check.consumption.push(string);
+      return check.consumption;
+    },
+    // eslint-disable-next-line sonarjs/cognitive-complexity
+    pay: () => {
+      let bill = check.consumption;
+      let drinks = Object(check.fetchMenu().drink);
+      let foods = Object(check.fetchMenu().food);
+      let sum = 0.0;
+      // *consulta https://pt.stackoverflow.com/questions/173293/como-percorrer-um-objeto-em-javascript
+      // Object.keys(foods).forEach((item) => {
+      //   console.log(item + " = " + foods[item]);
+      // });
+      for (let value of bill) {
+        Object.keys(foods).forEach((item) => {
+          if (item === value) {
+            sum += foods[item];
+          }
+        });
+        Object.keys(drinks).forEach((item) => {
+          if (item === value) {
+            sum += drinks[item];
+          }
+        });
+      }
+      return sum;
+    },
+  };
+  return check;
+};
+// let order1 = createMenu({ food: { coxinha: 5.75, pizza: 42.0 }, drink: { refrigerante: 4.5, agua: 2.25 } });
+// order1.order('coxinha');
+// order1.order('agua');
+// order1.order('coxinha');
+// console.log(order1.pay());
 
 module.exports = createMenu;
